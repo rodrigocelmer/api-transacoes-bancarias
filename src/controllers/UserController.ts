@@ -24,4 +24,8 @@ export class UserController {
 
         return response.json(user.toJson());
     }
+
+    getAll(request: Request, response: Response) {
+        return response.json(usersDB);
+    }
 }
