@@ -45,7 +45,8 @@ export class User {
             name: this._name,
             cpf: this._cpf,
             email: this._email,
-            age: this._age
+            age: this._age,
+            transactions: this._transactions
         }
     }
 }

@@ -26,6 +26,10 @@ export class UserController {
     }
 
     getAll(request: Request, response: Response) {
-        return response.json(usersDB);
+        return response.json(
+            usersDB.map(user => {
+                return user.toJson();
+            })
+        );
     }
 }
