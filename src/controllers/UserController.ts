@@ -11,5 +11,17 @@ export class UserController {
         usersDB.push(user);
 
         return response.json(user.toJson());
+    };
+
+    getById(request: Request, response: Response){
+        const {id} = request.params;
+
+        const user = usersDB.find((user) => user.id === id);
+
+        if(!user) {
+            return response.status(404).json({err: 'user not found'});
+        }
+
+        return response.json(user.toJson());
     }
 }
