@@ -26,10 +26,35 @@ export class UserController {
     }
 
     getAll(request: Request, response: Response) {
-        return response.json(
-            usersDB.map(user => {
-                return user.toJson();
+
+        let allUsersFounded = usersDB.map( user => {
+            return user.toJson();
+        })
+
+        const { name, email, cpf } = request.query;
+
+        if(name) {
+            allUsersFounded = allUsersFounded.filter(user => {
+                return user.name.toLowerCase().includes(name.toString().toLowerCase())
             })
-        );
+        }
+
+        if(email) {
+            allUsersFounded = allUsersFounded.filter(user => {
+                return user.email.toLowerCase().includes(email.toString().toLowerCase())
+            })
+        }
+
+        if(cpf) {
+            allUsersFounded = allUsersFounded.filter(user => {
+                return user.cpf.toLowerCase().includes(cpf.toString().toLowerCase())
+            })
+        }
+
+        console.log(allUsersFounded);
+        
+
+
+        return response.json(allUsersFounded);
     }
 }
