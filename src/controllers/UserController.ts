@@ -51,10 +51,18 @@ export class UserController {
             })
         }
 
-        console.log(allUsersFounded);
-        
-
-
         return response.json(allUsersFounded);
+    }
+
+    remove(request: Request, response: Response){
+        const {id} = request.params;
+        const user = usersDB.findIndex(u => u.id === id);
+
+        if(user == -1){
+            return response.status(404).json({err: 'user not found'});
+        }
+
+        usersDB.splice(user, 1);
+        return response.json({msg: 'user deleted'});
     }
 }

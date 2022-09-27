@@ -6,4 +6,5 @@ export default (app: Express) => {
     app.post('/users', new UserController().create);
     app.get('/users/:id', new UserController().getById);
     app.get('/users' , new UserController().getAll);
+    app.delete('/users/:id', new UserController().remove);
 }
