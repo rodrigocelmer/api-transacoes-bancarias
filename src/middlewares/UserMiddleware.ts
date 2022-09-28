@@ -22,4 +22,15 @@ export class UserMiddleware {
     
         return next();
     }
+
+    validateUserId(request: Request, response: Response, next: NextFunction){
+        const {id} = request.params;
+        const user = usersDB.find(u => u.id === id);
+
+        if(!user)
+            return response.status(404).json({err: 'user not found'});
+
+        return next();
+        
+    }
 }

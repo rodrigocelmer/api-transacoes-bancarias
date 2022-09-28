@@ -28,6 +28,9 @@ export class User {
     }
 
     private _transactions: Transactions[];
+    get transactions(): Transactions[]{
+        return [...this._transactions]
+    }
 
 
     constructor(name: string, cpf: string, email: string, age: number) {
@@ -37,6 +40,10 @@ export class User {
         this._email = email
         this._age = age;
         this._transactions = [];
+    }
+
+    setTransactions(transactions: Transactions[]){
+        this.transactions.push(...this._transactions);
     }
 
     toJson(){

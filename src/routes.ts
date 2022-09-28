@@ -1,6 +1,7 @@
 import { Express } from "express";
+import { TransactionController } from "./controllers/TransactionController";
 import { UserController } from "./controllers/UserController";
-import { UserMiddleware } from "./middlewares/userMiddleware";
+import { UserMiddleware } from "./middlewares/UserMiddleware";
 
 export default (app: Express) => {
     app.get('/', (request, response) => response.send('OK'));
@@ -12,5 +13,10 @@ export default (app: Express) => {
         '/users/:id',
         new UserMiddleware().validateUpdateUser,
         new UserController().update
+    );
+    app.post(
+        '/users/:userId/transactions', 
+        new UserMiddleware().validateUserId, 
+        new TransactionController().create
     );
 }
