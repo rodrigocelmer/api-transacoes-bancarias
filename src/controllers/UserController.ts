@@ -65,4 +65,14 @@ export class UserController {
         usersDB.splice(user, 1);
         return response.json({msg: 'user deleted'});
     }
+
+    update(request: Request, response: Response){
+        const {id} = request.params;
+        const {name, cpf, email, age} = request.body;
+        const user = usersDB.find(u => u.id === id);
+
+        user?.update(name, cpf, email, age);
+
+        return response.json(user?.toJson());
+    }
 }

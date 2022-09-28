@@ -48,4 +48,11 @@ export class User {
             age: this._age
         }
     }
+
+    update(name: string, cpf: string, email: string, age: number){
+        this._name = name;
+        this._cpf = cpf;
+        this._email = email;
+        this._age = age;
+    }
 }
