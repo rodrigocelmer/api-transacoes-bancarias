@@ -42,8 +42,8 @@ export class User {
         this._transactions = [];
     }
 
-    setTransactions(transactions: Transactions[]){
-        this.transactions.push(...this._transactions);
+    setTransactions(transactions: Transactions){
+        this._transactions.push(transactions);
     }
 
     toJson(){

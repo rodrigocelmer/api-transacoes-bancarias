@@ -24,13 +24,13 @@ export class UserMiddleware {
     }
 
     validateUserId(request: Request, response: Response, next: NextFunction){
-        const {id} = request.params;
-        const user = usersDB.find(u => u.id === id);
+        const {userId} = request.params;
+        const user = usersDB.find(u => u.id === userId);
 
-        if(!user)
+        if(!user){
             return response.status(404).json({err: 'user not found'});
+        }
 
-        return next();
-        
+        return next();        
     }
 }
