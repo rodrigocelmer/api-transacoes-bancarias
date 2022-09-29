@@ -13,5 +13,13 @@ export class TransactionController{
         user?.setTransactions(transactions);
 
         return response.json(transactions.toJson());
-    }    
+    }  
+    
+    getById(request: Request, response: Response) {
+        const {userId, transId} = request.params;
+        const user = usersDB.find(u => u.id === userId);
+        const transaction = user?.transactions.find(t => t.id === transId);
+
+        return response.json(transaction?.toJson());
+    }
 }

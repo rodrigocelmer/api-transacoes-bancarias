@@ -1,6 +1,7 @@
 import { Express } from "express";
 import { TransactionController } from "./controllers/TransactionController";
 import { UserController } from "./controllers/UserController";
+import { TransactionMiddleware } from "./middlewares/TransactionMiddleware";
 import { UserMiddleware } from "./middlewares/UserMiddleware";
 
 export default (app: Express) => {
@@ -18,5 +19,11 @@ export default (app: Express) => {
         '/users/:userId/transactions', 
         new UserMiddleware().validateUserId, 
         new TransactionController().create
+    );
+    app.get(
+        '/users/:userId/transactions/:transId',
+        new UserMiddleware().validateUserId,
+        new TransactionMiddleware().validateTransId,
+        new TransactionController().getById
     );
 }
