@@ -26,4 +26,9 @@ export default (app: Express) => {
         new TransactionMiddleware().validateTransId,
         new TransactionController().getById
     );
+    app.get(
+        '/users/:userId/transactions',
+        new UserMiddleware().validateUserId,
+        new TransactionController().getAll
+    );
 }

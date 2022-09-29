@@ -22,4 +22,27 @@ export class TransactionController{
 
         return response.json(transaction?.toJson());
     }
+
+    getAll(request: Request, response: Response) {
+        const {userId, transId} = request.params;
+        const user = usersDB.find(u => u.id === userId);
+        const {title, type} = request.query;
+        let allTransFounded = user?.transactions.map( trans => {
+            return trans.toJson();
+        })
+
+        if(title) {
+            allTransFounded = allTransFounded?.filter(trans => {
+                return trans.title.toLowerCase().includes(title.toString().toLowerCase());
+            })
+        }
+
+        if(type) {
+            allTransFounded = allTransFounded?.filter(trans => {
+                return trans.type.toLowerCase().includes(type.toString().toLowerCase());
+            })
+        }
+
+        return response.json(allTransFounded);
+    }
 }
