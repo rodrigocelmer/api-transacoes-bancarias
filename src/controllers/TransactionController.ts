@@ -43,6 +43,11 @@ export class TransactionController{
             })
         }
 
-        return response.json(allTransFounded);
+        const resp = {
+            transactions: allTransFounded,
+            balance: user?.sumTrans()
+        }
+
+        return response.json(resp);
     }
 }

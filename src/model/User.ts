@@ -62,4 +62,27 @@ export class User {
         this._email = email;
         this._age = age;
     }
+
+    sumTrans(): object{
+        let balance = {
+            sumIn: 0,
+            sumOut: 0,
+            total: 0
+        }
+
+        this._transactions.map(trans => {
+            if(trans.type === 'income'){
+                balance.sumIn += trans.value;
+            }
+            if(trans.type === 'outcome'){
+                balance.sumOut += trans.value;
+            }
+        })
+
+        balance.total = balance.sumIn - balance.sumOut;
+
+        console.log(balance)
+
+        return balance;
+    }
 }
