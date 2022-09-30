@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { usersDB } from "../db/users";
+import { Transactions } from "../model/Transactions";
+import { User } from "../model/User";
 
 export class UserMiddleware {
     validateUpdateUser(request: Request, response: Response, next: NextFunction){

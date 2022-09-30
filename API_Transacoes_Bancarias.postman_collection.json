@@ -153,7 +153,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							""
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"transId\", jsonData.id);"
 						],
 						"type": "text/javascript"
 					}
@@ -182,6 +183,61 @@
 						"users",
 						"{{userId}}",
 						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get transaction by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/{{userId}}/transactions/{{transId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"{{userId}}",
+						"transactions",
+						"{{transId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/{{userId}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"{{userId}}",
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "salario",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "income",
+							"disabled": true
+						}
 					]
 				}
 			},

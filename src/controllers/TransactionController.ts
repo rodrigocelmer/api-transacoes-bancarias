@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { usersDB } from "../db/users";
 import { Transactions } from "../model/Transactions";
+import { User } from "../model/User";
 
 export class TransactionController{
     create(request: Request, response: Response) {
@@ -49,5 +50,15 @@ export class TransactionController{
         }
 
         return response.json(resp);
+    }
+
+    remove(request: Request, response: Response) {
+        const {userId, transId} = request.params;
+        const user = usersDB.find(u => u.id === userId) as User;
+        const index = user.transactions.findIndex(t => t.id === transId) ;
+
+        user?.deleteTransactions(index);
+        
+        return response.json({msg: "transaction removed."});
     }
 }

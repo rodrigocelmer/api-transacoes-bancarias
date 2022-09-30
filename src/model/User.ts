@@ -46,6 +46,10 @@ export class User {
         this._transactions.push(transactions);
     }
 
+    deleteTransactions(index: number) {
+        this._transactions.splice(index, 1);
+    }
+
     toJson(){
         return{
             id: this._id,
@@ -80,9 +84,6 @@ export class User {
         })
 
         balance.total = balance.sumIn - balance.sumOut;
-
-        console.log(balance)
-
         return balance;
     }
 }
