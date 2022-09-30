@@ -19,7 +19,13 @@ export class Transactions{
     private _type: string;
     get type(): string {
         return this._type;
-    }    
+    }
+    
+    updateTransac(transaction: Transactions){
+        this._title = transaction.title;
+        this._value = transaction.value;
+        this._type = transaction._type;
+    }
 
     constructor(title: string, value: number, type: string) {
         this._id = crypto.randomUUID();

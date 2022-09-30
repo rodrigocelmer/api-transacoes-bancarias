@@ -37,4 +37,10 @@ export default (app: Express) => {
         new TransactionMiddleware().validateTransId,
         new TransactionController().remove
     );
+    app.put(
+        '/users/:userId/transactions/:transId',
+        new UserMiddleware().validateUserId,
+        new TransactionMiddleware().validateTransId,
+        new TransactionController().update
+    );
 }

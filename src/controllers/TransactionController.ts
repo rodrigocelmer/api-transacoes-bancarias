@@ -61,4 +61,16 @@ export class TransactionController{
         
         return response.json({msg: "transaction removed."});
     }
+
+    update(request: Request, response: Response) {
+        const {userId, transId} = request.params;
+        const {title, value, type} = request.body;
+        const user = usersDB.find(u => u.id === userId) as User;
+        const index = user.transactions.find(t => t.id === transId) as Transactions;
+        const t = {id: transId, title, value, type} as Transactions;
+
+        user?.editTransactions(t);
+        
+        return response.json({msg: "transaction edited."});
+    }
 }

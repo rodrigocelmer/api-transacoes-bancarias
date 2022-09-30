@@ -50,6 +50,16 @@ export class User {
         this._transactions.splice(index, 1);
     }
 
+    editTransactions(transaction: Transactions){
+        console.log("User method");
+        console.log("transaction ", transaction);
+        
+        const transac = this._transactions.find(t => t.id === transaction.id) as Transactions;
+        console.log("transac ",transac);
+        
+        transac.updateTransac(transaction)
+    }
+
     toJson(){
         return{
             id: this._id,
