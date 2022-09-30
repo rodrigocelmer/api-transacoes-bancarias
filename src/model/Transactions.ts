@@ -24,7 +24,7 @@ export class Transactions{
     updateTransac(transaction: Transactions){
         this._title = transaction.title;
         this._value = transaction.value;
-        this._type = transaction._type;
+        this._type = transaction.type;
     }
 
     constructor(title: string, value: number, type: string) {

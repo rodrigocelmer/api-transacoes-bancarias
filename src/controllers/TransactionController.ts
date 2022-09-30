@@ -59,7 +59,7 @@ export class TransactionController{
 
         user?.deleteTransactions(index);
         
-        return response.json({msg: "transaction removed."});
+        return response.json({msg: "transaction deleted"});
     }
 
     update(request: Request, response: Response) {
@@ -71,6 +71,6 @@ export class TransactionController{
 
         user?.editTransactions(t);
         
-        return response.json({msg: "transaction edited."});
+        return response.json({msg: "transaction edited"});
     }
 }
