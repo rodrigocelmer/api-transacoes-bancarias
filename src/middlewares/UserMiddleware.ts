@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { usersDB } from "../db/users";
-import { Transactions } from "../model/Transactions";
-import { User } from "../model/User";
+import { cpf as cpfValidator } from "cpf-cnpj-validator";
 
 export class UserMiddleware {
     validateUserBody(request: Request, response: Response, next: NextFunction){
@@ -28,5 +27,21 @@ export class UserMiddleware {
         }
 
         return next();        
+    }
+
+    validateCpf(request: Request, response: Response, next: NextFunction){
+        const {cpf} = request.body;
+        request.body.cpf = cpf.replace(/\W/g, '');
+
+        if(!cpfValidator.isValid(request.body.cpf)){
+            return response.status(400).json({err: 'invalid cpf'})
+        }
+
+        if(usersDB.some((user => user.cpf === request.body.cpf))){
+            
+            return response.status(400).json({err: 'there is already an user with this cpf'})
+        }
+
+        return next();
     }
 }

@@ -10,6 +10,7 @@ export default (app: Express) => {
     app.post(
         '/users', 
         new UserMiddleware().validateUserBody,
+        new UserMiddleware().validateCpf,
         new UserController().create
     );
     app.get(
@@ -30,6 +31,7 @@ export default (app: Express) => {
         '/users/:userId',
         new UserMiddleware().validateUserId, 
         new UserMiddleware().validateUserBody,
+        new UserMiddleware().validateCpf,
         new UserController().update
     );
     app.post(
