@@ -4,15 +4,9 @@ import { Transactions } from "../model/Transactions";
 import { User } from "../model/User";
 
 export class UserMiddleware {
-    validateUpdateUser(request: Request, response: Response, next: NextFunction){
-        const {id} = request.params;
+    validateUserBody(request: Request, response: Response, next: NextFunction){
         const {name, cpf, email, age} = request.body;
-        const user = usersDB.find(u => u.id === id);
 
-        if(!user){
-            return response.status(404).json({err: 'user not found'});
-        }
-        
         if(!name) 
             return response.status(404).json({err: '\'name\' field not informed'});
         if(!cpf) 

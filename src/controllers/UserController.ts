@@ -5,7 +5,6 @@ import { User } from "../model/User";
 export class UserController {
     create(request: Request, response: Response) {
         const {name, cpf, email, age} = request.body;
-
         const user = new User(name, cpf, email, age);
 
         usersDB.push(user);
@@ -14,24 +13,17 @@ export class UserController {
     };
 
     getById(request: Request, response: Response){
-        const {id} = request.params;
-
-        const user = usersDB.find((user) => user.id === id);
-
-        if(!user) {
-            return response.status(404).json({err: 'user not found'});
-        }
+        const {userId} = request.params;
+        const user = usersDB.find((user) => user.id === userId) as User;
 
         return response.json(user.toJson());
     }
 
     getAll(request: Request, response: Response) {
-
+        const { name, email, cpf } = request.query;
         let allUsersFounded = usersDB.map( user => {
             return user.toJson();
         })
-
-        const { name, email, cpf } = request.query;
 
         if(name) {
             allUsersFounded = allUsersFounded.filter(user => {
@@ -55,23 +47,20 @@ export class UserController {
     }
 
     remove(request: Request, response: Response){
-        const {id} = request.params;
-        const user = usersDB.findIndex(u => u.id === id);
+        const {userId} = request.params;
+        const userIndex = usersDB.findIndex(u => u.id === userId);
 
-        if(user == -1){
-            return response.status(404).json({err: 'user not found'});
-        }
+        usersDB.splice(userIndex, 1);
 
-        usersDB.splice(user, 1);
         return response.json({msg: 'user deleted'});
     }
 
     update(request: Request, response: Response){
-        const {id} = request.params;
+        const {userId} = request.params;
         const {name, cpf, email, age} = request.body;
-        const user = usersDB.find(u => u.id === id);
+        const user = usersDB.find(u => u.id === userId) as User;
 
-        user?.update(name, cpf, email, age);
+        user.update(name, cpf, email, age);
 
         return response.json(user?.toJson());
     }
