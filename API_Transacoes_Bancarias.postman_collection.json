@@ -1,44 +1,13 @@
 {
 	"info": {
-		"_postman_id": "1401a78a-cc19-4232-9974-fab23dafc0e3",
-		"name": "2022-09-19-crud",
+		"_postman_id": "cf091cbf-a42c-4467-8085-1797f85b3e62",
+		"name": "API Transacoes Bancarias",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23438553"
 	},
 	"item": [
 		{
-			"name": "get all growdevers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/growdevers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"growdevers"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "Rodrigo",
-							"disabled": true
-						},
-						{
-							"key": "status",
-							"value": "studying",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "create growdever",
+			"name": "create user",
 			"event": [
 				{
 					"listen": "test",
@@ -56,7 +25,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Rodrigo\",\r\n    \"birth\": \"1995-07-17\",\r\n    \"cpf\": \"028.578.150-26\",\r\n    \"skills\": [\r\n        \"JS\",\r\n        \"TS\",\r\n        \"HTML\"\r\n    ]\r\n}",
+					"raw": "{\r\n    \"name\": \"Rodrigo\",\r\n    \"cpf\": \"11122233345\",\r\n    \"email\": \"rodrigo@gmail.com\",\r\n    \"age\": 27\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -64,33 +33,33 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/growdevers",
+					"raw": "http://localhost:8080/users",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"growdevers"
+						"users"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "get growdever by id",
+			"name": "get user by id",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/growdevers/{{userId}}",
+					"raw": "http://localhost:8080/users/{{userId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"growdevers",
+						"users",
 						"{{userId}}"
 					]
 				}
@@ -98,19 +67,50 @@
 			"response": []
 		},
 		{
-			"name": "delete growdever",
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Rodrigo",
+							"disabled": true
+						},
+						{
+							"key": "cpf",
+							"value": "11122233345",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/growdevers/{{userId}}",
+					"raw": "http://localhost:8080/users/{{userId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"growdevers",
+						"users",
 						"{{userId}}"
 					]
 				}
@@ -118,13 +118,13 @@
 			"response": []
 		},
 		{
-			"name": "update growdever",
+			"name": "update user",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Rodrigo Steffen Celmer\",\r\n    \"birth\": \"1995-07-17\",\r\n    \"status\": \"cancelled\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Rodrigo Celmer\",\r\n    \"cpf\": \"00000000000\",\r\n    \"email\": \"rodrigo@gmail.com\",\r\n    \"age\": 79\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -132,14 +132,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/growdevers/{{userId}}",
+					"raw": "http://localhost:8080/users/{{userId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"growdevers",
+						"users",
 						"{{userId}}"
 					]
 				}
@@ -147,13 +147,25 @@
 			"response": []
 		},
 		{
-			"name": "update skills",
+			"name": "create transaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"transId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"skills\": [\"HTML\"]\r\n}",
+					"raw": "{\r\n    \"title\": \"salario\",\r\n    \"value\": 6000,\r\n    \"type\": \"income\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -161,29 +173,106 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/growdevers/{{userId}}/skills",
+					"raw": "http://localhost:8080/users/{{userId}}/transactions",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"growdevers",
+						"users",
 						"{{userId}}",
-						"skills"
+						"transactions"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "delete skill",
+			"name": "get transaction by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/{{userId}}/transactions/{{transId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"{{userId}}",
+						"transactions",
+						"{{transId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/{{userId}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"{{userId}}",
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "salario",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "outcome",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete transaction",
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/{{userId}}/transactions/{{transId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"{{userId}}",
+						"transactions",
+						"{{transId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update transaction",
+			"request": {
+				"method": "PUT",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"skills\": \"HTML\"\r\n}",
+					"raw": "{\r\n    \"title\": \"market\",\r\n    \"value\": 15000,\r\n    \"type\": \"outcome\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -191,16 +280,17 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/growdevers/{{userId}}/skills",
+					"raw": "http://localhost:8080/users/{{userId}}/transactions/{{transId}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"growdevers",
+						"users",
 						"{{userId}}",
-						"skills"
+						"transactions",
+						"{{transId}}"
 					]
 				}
 			},
