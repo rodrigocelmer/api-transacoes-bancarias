@@ -8,7 +8,6 @@ export class TransactionController{
         const {title, value, type} = request.body;
         const {userId} = request.params;
         const user = usersDB.find(u => u.id === userId);
-
         const transactions = new Transactions(title, value, type);
 
         user?.setTransactions(transactions);

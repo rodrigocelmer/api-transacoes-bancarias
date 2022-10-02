@@ -35,6 +35,7 @@ export default (app: Express) => {
     app.post(
         '/users/:userId/transactions', 
         new UserMiddleware().validateUserId, 
+        new TransactionMiddleware().validateTransBody,
         new TransactionController().create
     );
     app.get(
@@ -58,6 +59,7 @@ export default (app: Express) => {
         '/users/:userId/transactions/:transId',
         new UserMiddleware().validateUserId,
         new TransactionMiddleware().validateTransId,
+        new TransactionMiddleware().validateTransBody,
         new TransactionController().update
     );
 }

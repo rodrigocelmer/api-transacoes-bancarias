@@ -13,4 +13,19 @@ export class TransactionMiddleware {
 
         return next();
     }
+
+    validateTransBody(request: Request, response: Response, next: NextFunction){
+        const {title, value, type} = request.body;
+        
+        if(!title) 
+        return response.status(404).json({err: '\'title\' field not informed'});
+        if(!value) 
+            return response.status(404).json({err: '\'value\' field not informed'});
+        if(!type) 
+            return response.status(404).json({err: '\'type\' field not informed'});
+        if(type !== 'income' && type !== 'outcome') 
+            return response.status(404).json({err: 'invalid \'type\' field informed'});
+
+        return next();
+    }
 }
