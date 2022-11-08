@@ -4,11 +4,12 @@ import { User } from "../model/User";
 import { UserRepository } from "../repositories/users";
 
 export class UserController {
-    create(request: Request, response: Response) {
+    async create(request: Request, response: Response) {
         const {name, cpf, email, age} = request.body;
         const user = new User(name, cpf, email, age);
+        const repository = new UserRepository();
 
-        usersDB.push(user);
+        await repository.create(user);        
 
         return response.json(user.toJson());
     };
