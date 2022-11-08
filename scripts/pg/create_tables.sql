@@ -18,5 +18,9 @@ create table transactions(
 	constraint fk_user foreign key(id_user) references users(id)
 );
 
+insert into users (id, name, cpf, email, age)
+values
+	(uuid_generate_v4(), 'Rodrigo', '02857815026', 'rodrigo@rodrigo.com', 27);
+
 select * from users;
 select * from transactions;
