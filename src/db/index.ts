@@ -6,5 +6,3 @@ export const pool = new Pool({
         rejectUnauthorized: false
     }
 })
-
-pool.query("set schema 'growBank';");
