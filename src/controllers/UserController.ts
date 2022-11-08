@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { usersDB } from "../db/users";
 import { User } from "../model/User";
+import { UserRepository } from "../repositories/users";
 
 export class UserController {
     create(request: Request, response: Response) {
@@ -19,10 +20,11 @@ export class UserController {
         return response.json(user.toJson());
     }
 
-    getAll(request: Request, response: Response) {
+    async getAll(request: Request, response: Response) {
         const { name, email, cpf } = request.query;
-        let allUsersFounded = usersDB.map( user => {
-            return user.toJson();
+        const repository = new UserRepository();
+        let allUsersFounded = (await repository.getAll()).map( user => {
+            return user;
         })
 
         if(name) {
