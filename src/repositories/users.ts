@@ -13,16 +13,28 @@ export class UserRepository {
                 '${user.cpf}',
                 '${user.email}',
                 '${user.age}'
-            )`
+            );`
         )
         client.release();
+    }
+
+    async getById(userId: string): Promise<User> {
+        const client = await pool.connect();
+        client.query(setSchema);
+        const result = await client.query(
+            `SELECT * FROM users WHERE id = '${userId}';`
+        )
+
+        client.release;
+
+        return result.rows[0];
     }
 
     async getAll(): Promise<User[]> {
         const client = await pool.connect();
         client.query(setSchema);
         const result = await client.query(
-            'SELECT * FROM users'
+            'SELECT * FROM users;'
         );
         
         client.release();

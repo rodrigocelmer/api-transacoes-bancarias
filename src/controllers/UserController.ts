@@ -14,11 +14,12 @@ export class UserController {
         return response.json(user.toJson());
     };
 
-    getById(request: Request, response: Response){
+    async getById(request: Request, response: Response){
         const {userId} = request.params;
-        const user = usersDB.find((user) => user.id === userId) as User;
+        const repository = new UserRepository();
+        const user = await repository.getById(userId);
 
-        return response.json(user.toJson());
+        return response.json(user);
     }
 
     async getAll(request: Request, response: Response) {
