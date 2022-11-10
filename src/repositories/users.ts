@@ -1,5 +1,6 @@
 import { User } from "../model/User";
 import { pool } from "../db";
+import { pgHelper } from "../database/pg-helper";
 
 const setSchema = "set schema 'growBank';";
 export class UserRepository {
@@ -31,14 +32,16 @@ export class UserRepository {
     }
 
     async getAll(): Promise<User[]> {
-        const client = await pool.connect();
-        client.query(setSchema);
-        const result = await client.query(
-            'SELECT * FROM users;'
-        );
+        // const client = await pool.connect();
+        // client.query(setSchema);
+        // const result = await client.query(
+        //     'SELECT * FROM users;'
+        // );
         
-        client.release();
+        // client.release();
 
-        return result.rows;
+        const result: User[] = await pgHelper.client.query(`SELECT * FROM "growBank".users;`);
+
+        return result;
     }
 }
