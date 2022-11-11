@@ -2,7 +2,7 @@ import { User } from "../model/User";
 import { pool } from "../db";
 import { pgHelper } from "../database/pg-helper";
 
-const setSchema = "set schema 'growBank';";
+const setSchema = "set schema 'growbank';";
 export class UserRepository {
     async create(user: User): Promise<void>{
         const client = await pool.connect();
@@ -40,7 +40,7 @@ export class UserRepository {
         
         // client.release();
 
-        const result: User[] = await pgHelper.client.query(`SELECT * FROM "growBank".users;`);
+        const result: User[] = await pgHelper.client.query(`SELECT * FROM growbank.users;`);
 
         return result;
     }
