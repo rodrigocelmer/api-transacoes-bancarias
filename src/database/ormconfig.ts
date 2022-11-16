@@ -11,7 +11,7 @@ const config: DataSourceOptions = {
     // database: process.env.DB_DATABASE,
     synchronize: false,
     logging: false,
-    //schema: "growbank",
+    schema: "growbank",
     ssl: {
         rejectUnauthorized: false,
     },
