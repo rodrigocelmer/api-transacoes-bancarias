@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { TransactionEntity } from "./transaction.entity";
 
 @Entity({name:'users'})
 export class UserEntity{
@@ -16,4 +17,7 @@ export class UserEntity{
 
     @Column()
     age!: number;
+
+    @OneToMany(() => TransactionEntity, (transaction) => transaction.user)
+    transactions!: TransactionEntity;
 }
