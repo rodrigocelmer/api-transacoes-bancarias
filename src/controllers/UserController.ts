@@ -3,7 +3,7 @@ import { UserEntity } from "../database/entities/user.entity";
 import { pgHelper } from "../database/pg-helper";
 import { usersDB } from "../db/users";
 import { User } from "../model/User";
-import { UserRepository } from "../repositories/users";
+import { UserRepository } from "../repositories/users.repository";
 
 export class UserController {
     async create(request: Request, response: Response) {
@@ -52,11 +52,11 @@ export class UserController {
         return response.json(allUsersFounded);
     }
 
-    async remove(request: Request, response: Response){
+    remove(request: Request, response: Response){
         const {userId} = request.params;
-        const manager = pgHelper.client.manager;
+        const userIndex = usersDB.findIndex(u => u.id === userId);
 
-        await manager.delete(UserEntity, {id: userId})
+        usersDB.splice(userIndex, 1);
 
         return response.json({msg: 'user deleted'});
     }
