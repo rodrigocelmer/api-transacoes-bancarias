@@ -32,6 +32,18 @@ export class User {
         return [...this._transactions]
     }
 
+    static create(
+        id: string,
+        name: string,
+        cpf: string,
+        email: string,
+        age: number
+    ): User {
+        const user = new User(name, cpf, email, age);
+        user._id = id;
+
+        return user;
+    }
 
     constructor(name: string, cpf: string, email: string, age: number) {
         this._id = crypto.randomUUID();

@@ -59,13 +59,14 @@ export class UserController {
         return response.json({msg: 'user deleted'});
     }
 
-    update(request: Request, response: Response){
+    async update(request: Request, response: Response){
         const {userId} = request.params;
         const {name, cpf, email, age} = request.body;
-        const user = usersDB.find(u => u.id === userId) as User;
+        const toUpdate = User.create(userId, name, cpf, email, age);
+        const repository = new UserRepository();
 
-        user.update(name, cpf, email, age);
+        await repository.update(userId, toUpdate)
 
-        return response.json(user?.toJson());
+        return response.json(toUpdate.toJson());
     }
 }

@@ -30,8 +30,21 @@ export class UserRepository {
         return userEntity;
     }
 
-    async remove(userId: string){
+    async remove(userId: string): Promise<void>{
         const manager = pgHelper.client.manager;
         await manager.delete(UserEntity, {id: userId});
+    }
+
+    async update(userId: string, user: User): Promise<void>{
+        const manager = pgHelper.client.manager;
+        const userEntity = manager.create(UserEntity, {
+            id: userId,
+            name: user.name,
+            cpf: user.cpf,
+            email: user.email,
+            age: user.age
+        })
+
+        await manager.save(userEntity);
     }
 }
