@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { usersDB } from "../db/users";
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
+import { pgHelper } from "../database/pg-helper";
+import { UserEntity } from "../database/entities/user.entity";
 
 export class UserMiddleware {
     validateUserBody(request: Request, response: Response, next: NextFunction){
@@ -18,11 +20,12 @@ export class UserMiddleware {
         return next();
     }
 
-    validateUserId(request: Request, response: Response, next: NextFunction){
+    async validateUserId(request: Request, response: Response, next: NextFunction){
         const {userId} = request.params;
-        const user = usersDB.find(u => u.id === userId);
+        const manager = pgHelper.client.manager;
+        const userEntity = await manager.findOneBy(UserEntity, {id: userId});
 
-        if(!user){
+        if(!userEntity){
             return response.status(404).json({err: 'user not found'});
         }
 
