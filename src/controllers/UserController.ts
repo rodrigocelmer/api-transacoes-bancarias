@@ -52,11 +52,11 @@ export class UserController {
         return response.json(allUsersFounded);
     }
 
-    remove(request: Request, response: Response){
+    async remove(request: Request, response: Response){
         const {userId} = request.params;
-        const userIndex = usersDB.findIndex(u => u.id === userId);
+        const repository = new UserRepository();
 
-        usersDB.splice(userIndex, 1);
+        await repository.remove(userId);
 
         return response.json({msg: 'user deleted'});
     }

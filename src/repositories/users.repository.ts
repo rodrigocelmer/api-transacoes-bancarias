@@ -30,4 +30,9 @@ export class UserRepository {
         
         return userEntity;
     }
+
+    async remove(userId: string){
+        const manager = pgHelper.client.manager;
+        await manager.delete(UserEntity, {id: userId});
+    }
 }
