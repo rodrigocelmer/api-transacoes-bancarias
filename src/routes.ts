@@ -15,7 +15,7 @@ export default (app: Express) => {
     );
     app.get(
         '/users/:userId', 
-        // new UserMiddleware().validateUserId, 
+        new UserMiddleware().validateUserId, 
         new UserController().getById
     );
     app.get(
