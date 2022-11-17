@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { UserEntity } from "../database/entities/user.entity";
+import { pgHelper } from "../database/pg-helper";
 import { usersDB } from "../db/users";
 import { User } from "../model/User";
 import { UserRepository } from "../repositories/users";
@@ -50,11 +52,11 @@ export class UserController {
         return response.json(allUsersFounded);
     }
 
-    remove(request: Request, response: Response){
+    async remove(request: Request, response: Response){
         const {userId} = request.params;
-        const userIndex = usersDB.findIndex(u => u.id === userId);
+        const manager = pgHelper.client.manager;
 
-        usersDB.splice(userIndex, 1);
+        await manager.delete(UserEntity, {id: userId})
 
         return response.json({msg: 'user deleted'});
     }
