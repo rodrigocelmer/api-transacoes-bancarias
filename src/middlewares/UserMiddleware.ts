@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { usersDB } from "../db/users";
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
-import { pgHelper } from "../database/pg-helper";
-import { UserEntity } from "../database/entities/user.entity";
 import { UserRepository } from "../repositories/users.repository";
 
 export class UserMiddleware {

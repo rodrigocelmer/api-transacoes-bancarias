@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { UserEntity } from "../database/entities/user.entity";
-import { pgHelper } from "../database/pg-helper";
 import { usersDB } from "../db/users";
 import { User } from "../model/User";
 import { UserRepository } from "../repositories/users.repository";

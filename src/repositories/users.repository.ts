@@ -1,5 +1,4 @@
 import { User } from "../model/User";
-import { pool } from "../db";
 import { pgHelper } from "../database/pg-helper";
 import { UserEntity } from "../database/entities/user.entity";
 
